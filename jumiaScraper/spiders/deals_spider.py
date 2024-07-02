@@ -19,10 +19,12 @@ class DealsSpider(scrapy.Spider):
                 product_details = JumiascraperItem(
                     product_name=product.css("div.info > h3::text").get(),
                     product_price=product.css("div.info > div.prc::text").get(),
-                    product_image=product.css("div.img-c > img.img::attr(src)").get(),
+                    product_image=product.css(
+                        "div.img-c > img.img::attr(data-src)"
+                    ).get(),
                     old_price=product.css(
                         "div.info > div.s-prc-w > div.old::text"
                     ).get(),
-                    product_link=f"https://www.jumia.co.ke{product.css('a.core::attr(href)').get()}", 
+                    product_link=f"https://www.jumia.co.ke{product.css('a.core::attr(href)').get()}",
                 )
                 yield product_details

@@ -13,7 +13,7 @@ from itemadapter import ItemAdapter
 class JumiascraperPipeline:
     def __init__(self):
         # create/connect to a database
-        self.connection = sqlite3.connect("deals.sqlite")
+        self.connection = sqlite3.connect("deals.db")
 
         # create cursor, used to execute commands
         self.cursor = self.connection.cursor()
@@ -24,6 +24,7 @@ class JumiascraperPipeline:
         CREATE TABLE IF NOT EXISTS deals(
             product_name TEXT,
             product_price TEXT,
+            product_image TEXT,
             old_price TEXT,
             product_link TEXT        
         )
@@ -44,10 +45,11 @@ class JumiascraperPipeline:
         else:
             # define insert statement
             self.cursor.execute(
-                """INSERT INTO deals (product_name, product_price, old_price, product_link) VALUES (?, ?, ?, ?)""",
+                """INSERT INTO deals (product_name, product_price, product_image, old_price, product_link) VALUES (?, ?, ?, ?, ?)""",
                 (
                     item["product_name"],
                     item["product_price"],
+                    item["product_image"],
                     item["old_price"],
                     item["product_link"],
                 ),
