@@ -1,16 +1,22 @@
 import click
 import sqlite3
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 
+from jinja2 import StrictUndefined
+
+from blueprints import get_deals
+
 app = Flask(__name__)
-CORS(app)
+app.jinja_env.undefined = StrictUndefined
+
+app.register_blueprint(get_deals.bp)
 
 
 @app.route("/")
 def index():
-    return "Hello, world!"
+    return render_template("index.html.j2")
 
 
 @app.route("/api/deals")
@@ -40,7 +46,7 @@ def get_deals():
     "--debug", is_flag=True, default=False, help="enable auto reload and debugging"
 )
 def main(debug: bool):
-    app.run(debug=debug)
+    app.run(debug=debug, port=5050)
 
 
 if __name__ == "__main__":
