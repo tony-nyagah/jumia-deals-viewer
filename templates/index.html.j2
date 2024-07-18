@@ -18,210 +18,56 @@
 
 {% block content %}
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {% for deal in context %}
     <div class="bg-background rounded-lg shadow-lg overflow-hidden group">
         <div class="aspect-w-4 aspect-h-3">
-            <img src="/placeholder.svg" alt="Xiaomi Redmi Note 10 Pro" width="400" height="300"
+            <img src={{deal.product_image}} alt="Xiaomi Redmi Note 10 Pro" width="400" height="300"
                 class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                 style="aspect-ratio: 400/300; object-fit: cover" />
         </div>
         <div class="p-4">
             <h3 class="text-lg font-semibold mb-2">
-                Xiaomi Redmi Note 10 Pro
+                {{deal.product_name}}
             </h3>
             <div class="flex items-center gap-2">
                 <span class="text-primary font-bold text-xl">KES
-                    <!-- -->22999</span><span class="text-muted-foreground line-through text-sm">KES
-                    <!-- -->29999</span>
+                    <!-- -->{{deal.product_price}}</span><span class="text-muted-foreground line-through text-sm">KES
+                    <!-- -->{{deal.old_price}}</span>
             </div>
             <div class="mt-4">
                 <a target="_blank" class="inline-flex items-center gap-2 text-primary hover:underline"
-                    href="#"><span>View product</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="w-4 h-4">
+                    href="{{deal.product_link}}"><span>View product</span><svg xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
                         <path d="M5 12h14"></path>
                         <path d="m12 5 7 7-7 7"></path>
                     </svg></a>
             </div>
         </div>
     </div>
-    <div class="bg-background rounded-lg shadow-lg overflow-hidden group">
-        <div class="aspect-w-4 aspect-h-3">
-            <img src="/placeholder.svg" alt="Samsung Galaxy A52s 5G" width="400" height="300"
-                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                style="aspect-ratio: 400/300; object-fit: cover" />
-        </div>
-        <div class="p-4">
-            <h3 class="text-lg font-semibold mb-2">Samsung Galaxy A52s 5G</h3>
-            <div class="flex items-center gap-2">
-                <span class="text-primary font-bold text-xl">KES
-                    <!-- -->34999</span><span class="text-muted-foreground line-through text-sm">KES
-                    <!-- -->39999</span>
-            </div>
-            <div class="mt-4">
-                <a target="_blank" class="inline-flex items-center gap-2 text-primary hover:underline"
-                    href="#"><span>View product</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="w-4 h-4">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                    </svg></a>
-            </div>
-        </div>
-    </div>
-    <div class="bg-background rounded-lg shadow-lg overflow-hidden group">
-        <div class="aspect-w-4 aspect-h-3">
-            <img src="/placeholder.svg" alt="Apple iPhone 12 Pro Max" width="400" height="300"
-                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                style="aspect-ratio: 400/300; object-fit: cover" />
-        </div>
-        <div class="p-4">
-            <h3 class="text-lg font-semibold mb-2">
-                Apple iPhone 12 Pro Max
-            </h3>
-            <div class="flex items-center gap-2">
-                <span class="text-primary font-bold text-xl">KES
-                    <!-- -->99999</span><span class="text-muted-foreground line-through text-sm">KES
-                    <!-- -->109999</span>
-            </div>
-            <div class="mt-4">
-                <a target="_blank" class="inline-flex items-center gap-2 text-primary hover:underline"
-                    href="#"><span>View product</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="w-4 h-4">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                    </svg></a>
-            </div>
-        </div>
-    </div>
-    <div class="bg-background rounded-lg shadow-lg overflow-hidden group">
-        <div class="aspect-w-4 aspect-h-3">
-            <img src="/placeholder.svg" alt="OPPO Reno6 5G" width="400" height="300"
-                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                style="aspect-ratio: 400/300; object-fit: cover" />
-        </div>
-        <div class="p-4">
-            <h3 class="text-lg font-semibold mb-2">OPPO Reno6 5G</h3>
-            <div class="flex items-center gap-2">
-                <span class="text-primary font-bold text-xl">KES
-                    <!-- -->44999</span><span class="text-muted-foreground line-through text-sm">KES
-                    <!-- -->49999</span>
-            </div>
-            <div class="mt-4">
-                <a target="_blank" class="inline-flex items-center gap-2 text-primary hover:underline"
-                    href="#"><span>View product</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="w-4 h-4">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                    </svg></a>
-            </div>
-        </div>
-    </div>
-    <div class="bg-background rounded-lg shadow-lg overflow-hidden group">
-        <div class="aspect-w-4 aspect-h-3">
-            <img src="/placeholder.svg" alt="Tecno Camon 18 Premier" width="400" height="300"
-                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                style="aspect-ratio: 400/300; object-fit: cover" />
-        </div>
-        <div class="p-4">
-            <h3 class="text-lg font-semibold mb-2">Tecno Camon 18 Premier</h3>
-            <div class="flex items-center gap-2">
-                <span class="text-primary font-bold text-xl">KES
-                    <!-- -->26999</span><span class="text-muted-foreground line-through text-sm">KES
-                    <!-- -->29999</span>
-            </div>
-            <div class="mt-4">
-                <a target="_blank" class="inline-flex items-center gap-2 text-primary hover:underline"
-                    href="#"><span>View product</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="w-4 h-4">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                    </svg></a>
-            </div>
-        </div>
-    </div>
-    <div class="bg-background rounded-lg shadow-lg overflow-hidden group">
-        <div class="aspect-w-4 aspect-h-3">
-            <img src="/placeholder.svg" alt="OPPO Find X3 Neo" width="400" height="300"
-                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                style="aspect-ratio: 400/300; object-fit: cover" />
-        </div>
-        <div class="p-4">
-            <h3 class="text-lg font-semibold mb-2">OPPO Find X3 Neo</h3>
-            <div class="flex items-center gap-2">
-                <span class="text-primary font-bold text-xl">KES
-                    <!-- -->54999</span><span class="text-muted-foreground line-through text-sm">KES
-                    <!-- -->59999</span>
-            </div>
-            <div class="mt-4">
-                <a target="_blank" class="inline-flex items-center gap-2 text-primary hover:underline"
-                    href="#"><span>View product</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="w-4 h-4">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                    </svg></a>
-            </div>
-        </div>
-    </div>
-    <div class="bg-background rounded-lg shadow-lg overflow-hidden group">
-        <div class="aspect-w-4 aspect-h-3">
-            <img src="/placeholder.svg" alt="Xiaomi 11T Pro" width="400" height="300"
-                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                style="aspect-ratio: 400/300; object-fit: cover" />
-        </div>
-        <div class="p-4">
-            <h3 class="text-lg font-semibold mb-2">Xiaomi 11T Pro</h3>
-            <div class="flex items-center gap-2">
-                <span class="text-primary font-bold text-xl">KES
-                    <!-- -->44999</span><span class="text-muted-foreground line-through text-sm">KES
-                    <!-- -->49999</span>
-            </div>
-            <div class="mt-4">
-                <a target="_blank" class="inline-flex items-center gap-2 text-primary hover:underline"
-                    href="#"><span>View product</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="w-4 h-4">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                    </svg></a>
-            </div>
-        </div>
-    </div>
-    <div class="bg-background rounded-lg shadow-lg overflow-hidden group">
-        <div class="aspect-w-4 aspect-h-3">
-            <img src="/placeholder.svg" alt="Samsung Galaxy Z Fold3 5G" width="400" height="300"
-                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                style="aspect-ratio: 400/300; object-fit: cover" />
-        </div>
-        <div class="p-4">
-            <h3 class="text-lg font-semibold mb-2">
-                Samsung Galaxy Z Fold3 5G
-            </h3>
-            <div class="flex items-center gap-2">
-                <span class="text-primary font-bold text-xl">KES
-                    <!-- -->149999</span><span class="text-muted-foreground line-through text-sm">KES
-                    <!-- -->159999</span>
-            </div>
-            <div class="mt-4">
-                <a target="_blank" class="inline-flex items-center gap-2 text-primary hover:underline"
-                    href="#"><span>View product</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="w-4 h-4">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                    </svg></a>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}
 
 {% block pagination %}
 <div class="flex justify-center mt-8">
-    <nav aria-label="pagination" class="mx-auto flex w-full justify-center" role="navigation" currentpage="1"
-        totalpages="2"></nav>
-</div>
-{% endblock %}
+    {# <nav aria-label="pagination" class="mx-auto flex w-full justify-center" role="navigation" currentpage="1"
+        totalpages="2"></nav> #}
+    <nav class="flex justify-center mt-4">
+        <ul class="flex space-x-2">
+            <li
+                class="px-2 py-1 rounded-md bg-primary text-white {% if page == 1 %}opacity-50 pointer-events-none{% endif %}">
+                <a href="?page=1">First</a>
+            </li>
+            {% for p in range(1, total_pages + 1) %}
+            <li class="px-2 py-1 rounded-md bg-primary text-white {% if p == page %}bg-secondary{% endif %}">
+                <a href="?page={{ p }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+            <li
+                class="px-2 py-1 rounded-md bg-primary text-white {% if page == total_pages %}opacity-50 pointer-events-none{% endif %}">
+                <a href="?page={{ total_pages }}">Last</a>
+            </li>
+        </ul>
+    </nav>
+    {% endblock %}
