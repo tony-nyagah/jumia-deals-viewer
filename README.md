@@ -1,3 +1,5 @@
-# jumia-deals-viewer
+# Jumia Deals Viewer
+A simple program to view deals on Jumia.
 
-Describe your project here.
+## Commands
+Run the scrapy command `scrapy crawl jumia` to start scraping while in the `src` folder
