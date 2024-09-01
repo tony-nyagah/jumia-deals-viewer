@@ -11,7 +11,7 @@ from itemadapter import ItemAdapter
 class DealScraperPipeline:
     def __init__(self):
         # create/connect to a database
-        self.connection = sqlite3.connect("deals.db")
+        self.connection = sqlite3.connect("jumia_deals.db")
 
         # create cursor, used to execute commands
         self.cursor = self.connection.cursor()
@@ -30,7 +30,6 @@ class DealScraperPipeline:
         )
 
     def process_item(self, item, spider):
-
         # check to see if item  is already in the db
         self.cursor.execute(
             "SELECT * FROM deals WHERE product_link = ?", (item["product_link"],)

@@ -20,6 +20,7 @@ attrs==24.2.0
 automat==24.8.1
     # via twisted
 blinker==1.8.2
+    # via flask
     # via streamlit
 cachetools==5.5.0
     # via streamlit
@@ -30,6 +31,7 @@ cffi==1.17.0
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
+    # via flask
     # via streamlit
 constantly==23.10.4
     # via twisted
@@ -44,6 +46,11 @@ defusedxml==0.7.1
     # via scrapy
 filelock==3.15.4
     # via tldextract
+flask==3.0.3
+    # via flask-cors
+    # via jumia-deals-viewer
+flask-cors==5.0.0
+    # via jumia-deals-viewer
 gitdb==4.0.11
     # via gitpython
 gitpython==3.1.43
@@ -61,8 +68,11 @@ itemadapter==0.9.0
     # via scrapy
 itemloaders==1.3.1
     # via scrapy
+itsdangerous==2.2.0
+    # via flask
 jinja2==3.1.4
     # via altair
+    # via flask
     # via pydeck
 jmespath==1.0.1
     # via itemloaders
@@ -78,6 +88,7 @@ markdown-it-py==3.0.0
     # via rich
 markupsafe==2.1.5
     # via jinja2
+    # via werkzeug
 mdurl==0.1.2
     # via markdown-it-py
 narwhals==1.6.0
@@ -178,6 +189,8 @@ w3lib==2.2.1
     # via scrapy
 watchdog==4.0.2
     # via streamlit
+werkzeug==3.0.4
+    # via flask
 zope-interface==7.0.3
     # via scrapy
     # via twisted
