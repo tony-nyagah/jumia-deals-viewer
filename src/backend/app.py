@@ -35,7 +35,6 @@ def get_deals():
 def index():
     deals = get_deals()
     deals_list = deals.get_json()
-
     page = request.args.get("page", 1, type=int)
     items_per_page = 12
     total_pages = (len(deals_list) + items_per_page - 1) // items_per_page
@@ -47,8 +46,24 @@ def index():
     end_index = start_index + items_per_page
     paginated_deals = deals_list[start_index:end_index]
 
+    # Calculate the range of pages to display
+    max_visible_pages = 7
+    half_visible_pages = max_visible_pages // 2
+    start_page = max(1, page - half_visible_pages)
+    end_page = min(total_pages, start_page + max_visible_pages - 1)
+
+    # Adjust start_page if end_page is at the maximum
+    if end_page == total_pages:
+        start_page = max(1, end_page - max_visible_pages + 1)
+
+    page_range = range(start_page, end_page + 1)
+
     return render_template(
-        "index.html.j2", context=paginated_deals, page=page, total_pages=total_pages
+        "index.html.j2",
+        context=paginated_deals,
+        page=page,
+        total_pages=total_pages,
+        page_range=page_range,
     )
 
 

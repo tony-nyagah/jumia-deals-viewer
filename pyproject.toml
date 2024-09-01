@@ -4,9 +4,9 @@ version = "0.1.0"
 description = "Add your description here"
 dependencies = [
     "scrapy>=2.11.2",
-    "streamlit>=1.38.0",
-    "flask>=3.0.3",
     "flask-cors>=5.0.0",
+    "gunicorn>=23.0.0",
+    "apache-airflow>=2.10.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
