@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+import subprocess
 
 import click
 import sqlite3
@@ -13,7 +15,7 @@ CORS(app)
 app.jinja_env.undefined = StrictUndefined
 
 
-def get_deals():
+def get_existing_db():
     db_path = os.path.join(os.path.dirname(os.path.abspath(__name__)), "jumia_deals.db")
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
@@ -34,9 +36,7 @@ def get_deals():
     return jsonify(deals_list)
 
 
-@app.route("/")
-def index():
-    deals = get_deals()
+def render_deals(deals):
     deals_list = deals.get_json()
     page = request.args.get("page", 1, type=int)
     items_per_page = 12
@@ -68,6 +68,21 @@ def index():
         total_pages=total_pages,
         page_range=page_range,
     )
+
+
+@app.route("/fetch_deals")
+def fetch_deals():
+    scrapy_config_path = Path(__file__).parent.absolute()
+    subprocess.run(["scrapy", "crawl", "jumia"], cwd=scrapy_config_path, check=True)
+
+    deals = get_existing_db()
+    return render_deals(deals)
+
+
+@app.route("/")
+def index():
+    deals = get_existing_db()
+    return render_deals(deals)
 
 
 @click.command()
