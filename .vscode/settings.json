@@ -1,3 +1,6 @@
 {
-  "python.analysis.extraPaths": ["./src/backend"]
+  "python.analysis.extraPaths": [
+    "./src/backend",
+    "./src/jumia_deals_viewer/backend"
+  ]
 }

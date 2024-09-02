@@ -1,3 +1,5 @@
+import os
+
 import click
 import sqlite3
 
@@ -7,15 +9,16 @@ from flask_cors import CORS
 from jinja2 import StrictUndefined
 
 app = Flask(__name__)
+CORS(app)
 app.jinja_env.undefined = StrictUndefined
 
 
 def get_deals():
-    connection = sqlite3.connect("src/jumia_deals.db")
+    db_path = os.path.join(os.path.dirname(os.path.abspath(__name__)), "jumia_deals.db")
+    connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute("select * from deals")
     deals = cursor.fetchall()
-    connection.close()
 
     deals_list = []
     for deal in deals:

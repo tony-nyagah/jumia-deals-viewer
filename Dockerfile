@@ -1,26 +1,19 @@
 # Use an official Python image as a base
 FROM python:3.12-slim
 
-# Set the working directory to /app
+# Set the working directory in the container to /app
 WORKDIR /app
 
-# Copy the requirements file
-COPY requirements.txt .
+# Copy the current directory contents into the container at /app
+ADD . /app
 
-# Install the dependencies
-RUN pip install -r requirements.txt
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code
-COPY . .
+# Change directory to src/jumia_deals_viewer
+WORKDIR /app/src/jumia_deals_viewer
 
-# Expose the port for the production site
-EXPOSE 5050
-
-# Run the command to delete the existing SQLite database
-RUN rm -f src/jumia.db
-
-# Run the Scrapy spider
-RUN cd src && scrapy crawl jumia
-
-# Run the command to start the production site using Gunicorn
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5050", "src.backend.app:app"]
+# Run the scrapy command to scrape data and store it in the sqlite database file
+RUN scrapy crawl jumia
+# Run the application using gunicorn
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5050", "backend.app:app"]
