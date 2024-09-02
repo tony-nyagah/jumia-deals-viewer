@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy the application code
-COPY src/ .
+COPY . .
 
 # Expose the port for the production site
 EXPOSE 5050
