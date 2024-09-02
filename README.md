@@ -1,16 +1,30 @@
 # Jumia Deals Viewer
 A simple program to view deals on Jumia.
 
-## Commands
+## Installation
 ### Run Locally
-First of all go into the `src/jumia_deals_viewer` directory:
-* `cd src/jumia_deals_viewer`
+First create a virtual environment and install dependencies:
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-1. Scrape data by running: 
-    * `scrapy crawl jumia` - to run a scraper and store the data in a sqlite database file.
+Then run the application using commands in the `Makefile`:
+```bash
+# scrape data from Jumia
+make scrape_data 
+# view the scraped data on `localhost:5050`
+make run
+```
 
-2. Locally run the up with: `python backend/app.py`.
+### Run in Docker
+Build the image using the `Dockerfile`:
+```bash
+docker build -t jumia_deals_viewer .
+```
 
-To use the production server, run: `gunicorn -w 4 -b 0.0.0.0:5050 backend.app:app`.
-
-To manually delete the existing SQLite database: `rm -f jumia_deals.db`.
+Run the image using the `Dockerfile`:
+```bash
+docker run -p 5050:5050 jumia_deals_viewer
+```
