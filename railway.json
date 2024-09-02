@@ -1,0 +1,11 @@
+{
+    "$schema": "https://railway.app/railway.schema.json",
+    "build": {
+        "builder": "NIXPACKS"
+    },
+    "deploy": {
+        "startCommand": "cd src/jumia_deals_viewer && scrapy crawl jumia && rm -rf jumia_deals.db && gunicorn -w 4 -b 0.0.0.0:5050 backend.app:app",
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+    }
+}
