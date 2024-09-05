@@ -7,18 +7,27 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.11"></script>
     <title>Jumia Deals Viewer {% block title %}{% endblock %}</title>
+    <style>
+        .htmx-indicator {
+            display: none;
+        }
+
+        .htmx-request .htmx-indicator {
+            display: inline-block;
+        }
+
+        .htmx-request.htmx-indicator {
+            display: inline-block;
+        }
+    </style>
 </head>
-<body hx-boost="true">
+<body>
     <section class="py-12 px-4 md:px-6">
         <div class="container mx-auto max-w-6xl">
-            {% block topbar %}
-            {% endblock %}
-
-            {% block content %}
-            {% endblock %}
-
-            {% block pagination %}
-            {% endblock %}
+            <div id="content">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
     </section>
 </body>

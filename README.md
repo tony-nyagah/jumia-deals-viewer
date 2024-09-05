@@ -10,13 +10,14 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Then run the application using commands in the `Makefile`:
+Then run the application using commands in the `Makefile`, this should work under a Linux or WSL environment:
 ```bash
 # scrape data from Jumia
 make scrape_data 
 # view the scraped data on `localhost:5050`
 make run
 ```
+The scraped data is put in the file `jumia_deals.db` under `src/jumia_deals_viewer`.
 
 ### Run in Docker
 Build the image using the `Dockerfile`:

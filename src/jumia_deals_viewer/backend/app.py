@@ -36,7 +36,7 @@ def get_existing_db():
     return jsonify(deals_list)
 
 
-def render_deals(deals):
+def render_deals_context(deals):
     deals_list = deals.get_json()
     page = request.args.get("page", 1, type=int)
     items_per_page = 12
@@ -61,13 +61,12 @@ def render_deals(deals):
 
     page_range = range(start_page, end_page + 1)
 
-    return render_template(
-        "index.html.j2",
-        context=paginated_deals,
-        page=page,
-        total_pages=total_pages,
-        page_range=page_range,
-    )
+    return {
+        "context": paginated_deals,
+        "page": page,
+        "total_pages": total_pages,
+        "page_range": page_range,
+    }
 
 
 @app.route("/fetch_deals")
@@ -76,13 +75,15 @@ def fetch_deals():
     subprocess.run(["scrapy", "crawl", "jumia"], cwd=scrapy_config_path, check=True)
 
     deals = get_existing_db()
-    return render_deals(deals)
+    context = render_deals_context(deals)
+    return render_template("index.html.j2", **context)
 
 
 @app.route("/")
 def index():
     deals = get_existing_db()
-    return render_deals(deals)
+    context = render_deals_context(deals)
+    return render_template("index.html.j2", **context)
 
 
 @click.command()
