@@ -1,0 +1,51 @@
+FROM apache/airflow:2.6.3-python3.10
+
+USER root
+
+# Install system dependencies and Docker CLI
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    docker.io \
+    sudo \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a new user with a specific UID (replace 1000 with your host user's UID)
+RUN useradd -m -u 1000 airflow_user
+RUN usermod -aG docker airflow_user
+
+# Set up directories and permissions
+RUN mkdir -p /app/src/jumia_deals_viewer && \
+    chown -R airflow_user:airflow_user /app/src/jumia_deals_viewer && \
+    chmod -R 775 /app/src/jumia_deals_viewer
+
+# Allow airflow_user to use sudo without password
+RUN echo "airflow_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Copy the Airflow executables to a location in PATH
+RUN cp -r /home/airflow/.local/bin/* /usr/local/bin/
+
+# Set environment variables
+ENV PATH="/usr/local/bin:${PATH}"
+ENV AIRFLOW_HOME="/opt/airflow"
+
+# Copy requirements file
+COPY --chown=airflow_user:airflow_user requirements.txt /requirements.txt
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r /requirements.txt
+
+# Copy the DAGs
+COPY --chown=airflow_user:airflow_user ./dags /opt/airflow/dags
+
+# Copy the entrypoint script and set permissions
+COPY airflow.sh /opt/airflow/airflow.sh
+RUN chmod +x /opt/airflow/airflow.sh && \
+    chown airflow_user:airflow_user /opt/airflow/airflow.sh
+
+USER airflow_user
+
+WORKDIR /opt/airflow
+
+ENTRYPOINT ["/bin/sh", "/opt/airflow/airflow.sh"]

@@ -1,0 +1,82 @@
+services:
+  jumia_backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: jumia_backend_container
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./src:/app/src
+    networks:
+      - jumia_network
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - jumia_network
+
+  airflow-webserver:
+      build:
+        context: .
+        dockerfile: Dockerfile.airflow
+      container_name: airflow_webserver
+      command: webserver
+      restart: always
+      depends_on:
+        - postgres
+        - airflow-scheduler
+      environment:
+        - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+        - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+        - AIRFLOW__CORE__LOAD_EXAMPLES=False
+        - AIRFLOW__WEBSERVER__SECRET_KEY=961d4a7c7c3b914e6a3f087600c47bc7
+      user: "1000:1000"
+      volumes:
+        - ./dags:/opt/airflow/dags
+        - ./src:/app/src
+        - ./airflow.sh:/opt/airflow/airflow.sh
+        - /etc/timezone:/etc/timezone:ro
+        - /etc/localtime:/etc/localtime:ro
+        - /var/run/docker.sock:/var/run/docker.sock
+      ports:
+        - "8080:8080"
+      networks:
+        - jumia_network
+
+  airflow-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    container_name: airflow_scheduler
+    command: scheduler
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__SECRET_KEY=961d4a7c7c3b914e6a3f087600c47bc7
+    user: "1000:1000"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./src:/app/src
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jumia_network
+
+networks:
+  jumia_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
